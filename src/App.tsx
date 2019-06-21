@@ -1,8 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ImplementButton from "./components/ImplementButton";
-import SendString from "./components/SendString";
 
 const App: React.FC = () => {
   return (
@@ -13,8 +11,7 @@ const App: React.FC = () => {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <div>
-          <ImplementButton text="I SEND JSON"></ImplementButton>
-          <SendString text="I SEND STRING" />
+
         </div>
       </header>
     </div>
