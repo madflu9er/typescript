@@ -1,21 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TicketsPage from "./pages/TicketsPage";
+import Ticket from "./types/Ticket";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <div>
+interface IState {
+    tickets: Ticket[]
+}
 
+class App extends React.Component<any> {
+
+    public state: IState = {
+        tickets: []
+    };
+
+    public async fetchAsync (url: string) {
+        let response = await fetch(url);
+        let data = await response.json();
+        this.setState({
+            tickets: data.tickets,
+        });
+    }
+
+    public componentDidMount(): void {
+
+        this.fetchAsync("tickets.json");
+
+    }
+
+    render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    const { tickets } = this.state;
+
+    if(!tickets.length) {
+      return  null;
+    }
+        console.log(tickets);
+    return (
+        <div className="App">
+            <TicketsPage tickets = {tickets} />
         </div>
-      </header>
-    </div>
-  );
+    );
+    }
 };
 
 export default App;
