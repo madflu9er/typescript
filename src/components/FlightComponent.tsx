@@ -10,7 +10,10 @@ const Block: any = styled.div`
     width: 70%;
     box-sizing: border-box;
     height: 30%;
-    background: red;
+    margin: 10px 0;
+    background: #FFFFFF;
+    box-shadow: 0 2px 6px 1px #b6b2b2;
+    border-radius: 7px;
 `;
 
 class FlightComponent extends React.Component<IProps> {
