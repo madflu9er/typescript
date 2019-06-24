@@ -3,6 +3,8 @@ import styled from "styled-components";
 import FlightComponent from "../components/FlightComponent";
 import Ticket from "../types/Ticket";
 import FilterMenuComponent from "../components/FilterMenuComponent";
+import compareTicketsByPrice from "../utils/filter";
+import GenerateKey from "../utils/generator";
 
 interface IProps {
   tickets: Ticket[]
@@ -10,6 +12,8 @@ interface IProps {
 
 interface IState {
   data: Ticket[],
+  currency: string,
+  currencyCoefficient: number,
 }
 
 const Block: any = styled.div`
@@ -44,33 +48,43 @@ class TicketsPage extends React.Component<IProps, IState> {
 
   public state: IState = {
     data: [],
+    currency: "rub",
+    currencyCoefficient: 1
   };
 
   public componentDidMount(){
     const { tickets } = this.props;
 
     this.setState({
-      data: tickets
+      data: tickets.sort(compareTicketsByPrice)
     });
-  }
 
+  }
 
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
 
     const {tickets} = this.props;
+    const  { currency, currencyCoefficient } = this.state;
+
+
 
     return(
       <FilterFlightWrapper>
         <FilterMenuComponent />
-          <BlockWrapper>
-            <Block>
-              {
-                tickets.map(item => (
-                  <FlightComponent ticket={item} />
-                ))
-              }
-             </Block>
-          </BlockWrapper>
+        <BlockWrapper>
+          <Block>
+            {
+              tickets.map(item => (
+                <FlightComponent
+                  currencyCoefficient={currencyCoefficient}
+                  currency={currency}
+                  key={GenerateKey(item, "price")}
+                  ticket={item}
+                />
+              ))
+            }
+           </Block>
+        </BlockWrapper>
       </FilterFlightWrapper>
    );
  }

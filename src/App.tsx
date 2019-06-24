@@ -22,12 +22,10 @@ class App extends React.Component<any> {
     }
 
     public componentDidMount(): void {
-
         this.fetchAsync("tickets.json");
-
     }
 
-    render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    render(): React.ReactElement<any | React.JSXElementConstructor<any>>  | null {
     const { tickets } = this.state;
 
     if(!tickets.length) {
