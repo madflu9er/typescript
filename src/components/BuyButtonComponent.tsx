@@ -27,9 +27,12 @@ const Button: any = styled.button`
 `;
 
 const BuyButtonComponent: React.FC<IProps> = (props) => {
+
+	const { price, currency, handleBuy } = props;
+
 	return (
-		<Button onClick={props.handleBuy}>
-			Купить за {props.price} {props.currency}
+		<Button onClick={handleBuy}>
+			Купить <br/> за {price} {currency}
 		</Button>
 	);
 };

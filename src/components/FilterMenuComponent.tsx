@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface IProps {
-    
+	changeCurrency(newCurrencyCoefficient: number, currencySymbol: string): void
 }
 
 const FilterMenu: any = styled.div`
@@ -15,16 +15,17 @@ const FilterMenu: any = styled.div`
 `;
 
 class FilterMenuComponent extends React.Component <IProps> {
-   
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
+			const { changeCurrency } = this.props;
         return (
             <FilterMenu>
                 <div>
 									<div>ВАЛЮТА</div>
 									<div>
-										<button >RUB</button>
-										<button>USD</button>
-										<button>EUR</button>
+										<button onClick={()=>{changeCurrency(1, "₽")}}>RUB</button>
+										<button onClick={()=>{changeCurrency(0.01587, "$")}}>USD</button>
+										<button onClick={()=>{changeCurrency(0.01393, "€")}}>EUR</button>
 									</div>
 								</div>
 							<div>

@@ -43,12 +43,11 @@ const BlockWrapper: any = styled.div`
 }
 `;
 
-
 class TicketsPage extends React.Component<IProps, IState> {
 
   public state: IState = {
     data: [],
-    currency: "rub",
+    currency: "₽",
     currencyCoefficient: 1
   };
 
@@ -58,7 +57,13 @@ class TicketsPage extends React.Component<IProps, IState> {
     this.setState({
       data: tickets.sort(compareTicketsByPrice)
     });
+  }
 
+  public changeCurrency (newCurrencyCoefficient: number, currencySymbol: string): void {
+    this.setState({
+      currencyCoefficient: newCurrencyCoefficient,
+      currency: currencySymbol
+    });
   }
 
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
@@ -70,7 +75,9 @@ class TicketsPage extends React.Component<IProps, IState> {
 
     return(
       <FilterFlightWrapper>
-        <FilterMenuComponent />
+        <FilterMenuComponent
+          changeCurrency={this.changeCurrency.bind(this)}
+        />
         <BlockWrapper>
           <Block>
             {

@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Ticket from "../types/Ticket";
 import BuyButtonComponent from "./BuyButtonComponent";
+import FlightInformationComponent from "./FlightInformationComponent";
 
 interface IProps {
   ticket: Ticket,
@@ -21,46 +22,42 @@ const Block: any = styled.div`
 `;
 
 const TicketCompany: any = styled.div`
-    height: 100%;
-    width: 35%;
-    border-right: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  height: 100%;
+  width: 35%;
+  border-right: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const TicketDetails: any = styled.div`
-    height: 100%
-    width: 75%;
+  display: flex;
+  height: 60%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Airlines: any = styled.img`
-    max-width: 80%;
+  max-width: 80%;
 `;
 
 const AirLinesImageWrapper: any = styled.div`
-    height: 40%;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  height: 40%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 class FlightComponent extends React.Component<IProps> {
 
   public handleBuy(price: number): void {
-    console.log("i bought this ticket for "+ price);
+    const { currencyCoefficient } = this.props;
+    console.log("i bought this ticket for "+ price * currencyCoefficient);
   }
 
-  public handleSwitchCurrencySymbol(currency: string): string {
-    switch(currency) {
-      case "rub" : return "₽";
-      case "usd" : return "€";
-      case "eur" : return "$";
-      default: return "";
-    }
-  }
 
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
    const { ticket, currency, currencyCoefficient } = this.props;
@@ -72,12 +69,25 @@ class FlightComponent extends React.Component<IProps> {
               <Airlines src="/airlines.webp"/>
             </AirLinesImageWrapper>
             <BuyButtonComponent
-              currency={this.handleSwitchCurrencySymbol(currency)}
-              price={ticket.price * currencyCoefficient}
+              currency={currency}
+              price={ Number((ticket.price * currencyCoefficient).toFixed(2))}
               handleBuy={() => {this.handleBuy(ticket.price)}}
             />
           </TicketCompany>
           <TicketDetails>
+            <FlightInformationComponent
+              city={ticket.origin_name}
+              index={ticket.origin}
+              date={ticket.arrival_date}
+              time={ticket.arrival_time}
+            />
+            <div>----------------------</div>
+            <FlightInformationComponent
+              city={ticket.destination_name}
+              index={ticket.destination}
+              date={ticket.departure_date}
+              time={ticket.departure_time}
+            />
           </TicketDetails>
         </Block>
     )
