@@ -1,0 +1,2 @@
+export const daysOfWeekArray: string[] = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+export const monthOfYearArray: string[] = ['Янв','Фев','Март','Апр','Май','Июнь','Июль','Авг','Сен','Oкт','Нояб','Дек',];

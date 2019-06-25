@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Ticket from "../types/Ticket";
 import BuyButtonComponent from "./BuyButtonComponent";
 import FlightInformationComponent from "./FlightInformationComponent";
+import formDateString from "../utils/helper";
 
 interface IProps {
   ticket: Ticket,
@@ -58,7 +59,6 @@ class FlightComponent extends React.Component<IProps> {
     console.log("i bought this ticket for "+ price * currencyCoefficient);
   }
 
-
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
    const { ticket, currency, currencyCoefficient } = this.props;
 
@@ -78,15 +78,15 @@ class FlightComponent extends React.Component<IProps> {
             <FlightInformationComponent
               city={ticket.origin_name}
               index={ticket.origin}
-              date={ticket.arrival_date}
-              time={ticket.arrival_time}
+              date={formDateString(ticket.departure_date)}
+              time={ticket.departure_time}
             />
             <div>----------------------</div>
             <FlightInformationComponent
               city={ticket.destination_name}
               index={ticket.destination}
-              date={ticket.departure_date}
-              time={ticket.departure_time}
+              date={formDateString(ticket.arrival_date)}
+              time={ticket.arrival_time}
             />
           </TicketDetails>
         </Block>
