@@ -87,6 +87,7 @@ class TicketsPage extends React.Component<IProps, IState> {
 					replaceFilters = {this.replaceFilters.bind(this)}
           changeCurrency={this.changeCurrency.bind(this)}
 					filter = {filters}
+					currency = {currency}
         />
         <BlockWrapper>
           <Block>
