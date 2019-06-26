@@ -2,7 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface IProps {
-	changeCurrency(newCurrencyCoefficient: number, currencySymbol: string): void
+	changeCurrency(newCurrencyCoefficient: number, currencySymbol: string): void,
+	replaceFilters(newFiltersArray: number[]): void,
+	filter: number[]
 }
 
 const FilterMenu: any = styled.div`
@@ -16,8 +18,24 @@ const FilterMenu: any = styled.div`
 
 class FilterMenuComponent extends React.Component <IProps> {
 
+		public handleChangeFilter(checked: boolean, filterValue: number, previousFilter: number[]): void {
+			const { replaceFilters } = this.props;
+
+			if(checked) {
+				if(filterValue === -1) {
+					previousFilter = [];
+				} else {
+					previousFilter.push(filterValue);
+				}
+			} else {
+				previousFilter.splice(previousFilter.indexOf(filterValue, 0), 1);
+			}
+
+			replaceFilters(previousFilter);
+		}
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
-			const { changeCurrency } = this.props;
+			const { changeCurrency, filter } = this.props;
         return (
             <FilterMenu>
                 <div>
@@ -31,24 +49,54 @@ class FilterMenuComponent extends React.Component <IProps> {
 							<div>
 								<div>КОЛИЧЕСТВО ПЕРЕСАДОК</div>
 								<div>
-									<input type="checkbox" id="c1" name=" cc"/>
-									<label htmlFor="c1"><span/>
+									<input
+										onChange={(e) => { this.handleChangeFilter(e.target.checked, -1, filter) }}
+										type="checkbox"
+										id="-1"
+										name="allAvailable"
+										checked={filter.length === 0}
+									/>
+									<label htmlFor="-1"><span/>
 										Все
 									</label>
-									<input type="checkbox" id="c2" name="cc"/>
-									<label htmlFor="c2"><span/>
+									<input
+										onChange={(e) => { this.handleChangeFilter(e.target.checked, 0, filter) }}
+										type="checkbox"
+										id="0"
+										name="withoutStops"
+										checked = {filter.includes(0)}
+									/>
+									<label htmlFor="0"><span/>
 										Без пересадок
 									</label>
-									<input type="checkbox" id="c3" name="cc"/>
-									<label htmlFor="c3"><span/>
+									<input
+										onChange={(e) => { this.handleChangeFilter(e.target.checked, 1, filter) }}
+										type="checkbox"
+										id="1"
+										name="withOneStop"
+										checked = {filter.includes(1)}
+									/>
+									<label htmlFor="1"><span/>
 										1 Пересадка
 									</label>
-									<input type="checkbox" id="c4" name="cc"/>
-									<label htmlFor="c4"><span/>
+									<input
+										onChange={(e) => { this.handleChangeFilter(e.target.checked, 2, filter) }}
+										type="checkbox"
+										id="2"
+										name="withTwoStops"
+										checked = {filter.includes(2)}
+									/>
+									<label htmlFor="2"><span/>
 										2 Пересадки
 									</label>
-									<input type="checkbox" id="c5" name="cc"/>
-									<label htmlFor="c5"><span/>
+									<input
+										onChange={(e) => { this.handleChangeFilter(e.target.checked, 3, filter) }}
+										type="checkbox"
+										id="3"
+										name="withThreeStops"
+										checked = {filter.includes(3)}
+									/>
+									<label htmlFor="3"><span/>
 										3 Пересадки
 									</label>
 								</div>

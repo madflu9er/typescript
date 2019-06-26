@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Ticket from "../types/Ticket";
 import BuyButtonComponent from "./BuyButtonComponent";
 import FlightInformationComponent from "./FlightInformationComponent";
-import formDateString from "../utils/helper";
+import { formDateString, createStringFromStops } from "../utils/helper";
 
 interface IProps {
   ticket: Ticket,
@@ -45,11 +45,46 @@ const Airlines: any = styled.img`
 `;
 
 const AirLinesImageWrapper: any = styled.div`
-  height: 40%;
+  height: 38%;
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
+`;
+
+const FlightDecorationText: any = styled.div`
+	font-size: 1.2vw;
+	color: #A2A9AB;
+`;
+
+const FlightDecorationBlock: any = styled.div`
+	font-size: 20px;
+	height: 50%;
+	width: 24%;
+	color: #A2A9AB;
+	position: relative;
+	padding: 0 2% 0% 0;
+	
+	i {
+		position: absolute;
+    top: 0;
+    right: -10px;
+	}
+`;
+
+const FlightDecorationIcon: any = styled.div`
+	font-size: 20px;
+	height: 17%
+	width: 100%;
+	border-bottom: 1px solid #A2A9AB;
+	color: #A2A9AB;
+	position: relative;
+	
+	i {
+		position: absolute;
+    top: 0;
+    right: -10px;
+	}
 `;
 
 class FlightComponent extends React.Component<IProps> {
@@ -81,7 +116,14 @@ class FlightComponent extends React.Component<IProps> {
               date={formDateString(ticket.departure_date)}
               time={ticket.departure_time}
             />
-            <div>----------------------</div>
+            <FlightDecorationBlock>
+							<FlightDecorationText>
+								{createStringFromStops(ticket.stops)}
+							</FlightDecorationText>
+							<FlightDecorationIcon>
+								<i className="fas fa-plane" />
+							</FlightDecorationIcon>
+						</FlightDecorationBlock>
             <FlightInformationComponent
               city={ticket.destination_name}
               index={ticket.destination}

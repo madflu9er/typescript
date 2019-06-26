@@ -1,4 +1,6 @@
-export default function compareTicketsByPrice(itemOne: any, itemTwo: any): number {
+import Ticket from "../types/Ticket";
+
+export function compareTicketsByPrice(itemOne: any, itemTwo: any): number {
 	if (itemOne.price < itemTwo.price) {
 		return -1;
 	}
@@ -6,4 +8,10 @@ export default function compareTicketsByPrice(itemOne: any, itemTwo: any): numbe
 		return 1;
 	}
 	return 0;
+}
+
+export function filterFlightsByStops(filtersArray: number[], ticketsArray: Ticket[]): Ticket[] {
+	if(!filtersArray.length) return ticketsArray;
+
+	 return ticketsArray.filter(ticket => (filtersArray.includes(ticket.stops)));
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FlightComponent from "../components/FlightComponent";
 import Ticket from "../types/Ticket";
 import FilterMenuComponent from "../components/FilterMenuComponent";
-import compareTicketsByPrice from "../utils/filter";
+import {compareTicketsByPrice, filterFlightsByStops } from "../utils/filter";
 import GenerateKey from "../utils/generator";
 
 interface IProps {
@@ -12,6 +12,7 @@ interface IProps {
 
 interface IState {
   data: Ticket[],
+	filters: number[],
   currency: string,
   currencyCoefficient: number,
 }
@@ -47,6 +48,7 @@ class TicketsPage extends React.Component<IProps, IState> {
 
   public state: IState = {
     data: [],
+		filters: [],
     currency: "₽",
     currencyCoefficient: 1
   };
@@ -66,22 +68,30 @@ class TicketsPage extends React.Component<IProps, IState> {
     });
   }
 
+  public replaceFilters (newFiltersArray: number[]): void {
+  	this.setState({
+			filters: newFiltersArray
+		})
+	}
+
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
 
     const {tickets} = this.props;
-    const  { currency, currencyCoefficient } = this.state;
+    const  { currency, currencyCoefficient, filters } = this.state;
 
 
 
     return(
       <FilterFlightWrapper>
         <FilterMenuComponent
+					replaceFilters = {this.replaceFilters.bind(this)}
           changeCurrency={this.changeCurrency.bind(this)}
+					filter = {filters}
         />
         <BlockWrapper>
           <Block>
             {
-              tickets.map(item => (
+							filterFlightsByStops(filters, tickets).map(item => (
                 <FlightComponent
                   currencyCoefficient={currencyCoefficient}
                   currency={currency}

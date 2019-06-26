@@ -1,6 +1,6 @@
 import { daysOfWeekArray, monthOfYearArray } from "./config";
 
-export  default function formDateString(date: string): string {
+export function formDateString(date: string): string {
 
 //date comes from server as "12.05.18 - dd.mm.yy"
 	let dateElements: string[] = date.split(".");
@@ -16,4 +16,16 @@ export  default function formDateString(date: string): string {
 	let dayOfWeek: string = daysOfWeekArray[fullDate.getDay()];
 
 	return `${dayOfDate} ${monthOfDate} ${yearOfDate}, ${dayOfWeek}`;
+}
+
+export function createStringFromStops(stops: number): string {
+	if(stops === 0) return "без пересадок";
+
+	if(stops >= 1 && stops < 5) {
+		if(stops === 1){
+			return  `${stops} пересадка`;
+		}
+		return `${stops} пересадки`;
+	}
+	return `${stops} пересадок`;
 }
