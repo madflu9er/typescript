@@ -11,7 +11,7 @@ export function compareTicketsByPrice(itemOne: any, itemTwo: any): number {
 }
 
 export function filterFlightsByStops(filtersArray: number[], ticketsArray: Ticket[]): Ticket[] {
-	if(!filtersArray.length) return ticketsArray;
+	if(!filtersArray.length) return [];
 
 	 return ticketsArray.filter(ticket => (filtersArray.includes(ticket.stops)));
 }

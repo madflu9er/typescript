@@ -9,12 +9,31 @@ interface IProps {
 }
 
 const FilterMenu: any = styled.div`
-	height: 400px;
+	height: 20rem;
 	margin: 10px 2% 0 0;
-	width: 22%;
+	width: 17rem;
 	background: white;
 	box-sizing: border-box;
-	box-shadow: 0 1px 6px 0px #b6b2b2
+	box-shadow: 0 1px 6px 0px #b6b2b2;
+	
+	@media (max-width: 768px) {
+  {
+  	width: 43rem;
+    display: flex;
+    padding-top: 1%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  @media (max-width: 430px) {
+  {
+  	width: 100%;
+  	height:40%;
+     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }  
 `;
 
 const FilterCurrencyBlock = styled.div`
@@ -24,11 +43,28 @@ const FilterCurrencyBlock = styled.div`
 	justify-content: space-around;
 	align-items: flex-start;
 	padding: 0 10%;
+	
+	@media (max-width: 768px) {
+  {
+  	width: 50%;
+    padding: 0 5%;
+  };
 `;
 
-const FilterButtonsBlock = styled(FilterCurrencyBlock)`
-	height: 70%
+const FilterButtonsBlock = styled.div`
+	height: 70%;
+	display: flex;
+	flex-direction: column;
 	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 0 10%;
+	
+	@media (max-width: 768px) {
+  {
+  	width: 50%;
+    padding: 0 5%;
+    height: 90%;
+  };
 `;
 
 const CheckBoxBlock = styled.div`
@@ -36,7 +72,7 @@ const CheckBoxBlock = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
-	height: 65%;
+	height: 10.5rem;
 `;
 
 const CheckBoxButtonWrapper = styled.div`
@@ -55,8 +91,8 @@ const CheckBoxButtonWrapper = styled.div`
     position: absolute;
     top: 50;
     left: 0;
-    width: 25px;
-    height: 25px;
+    width: 1.5625rem;
+    height: 1.5625rem;
     border-radius: 6px;
     background: transparent;
     border: 1.4px solid #9e9c9c;
@@ -83,11 +119,11 @@ const CheckBoxButtonWrapper = styled.div`
 		content: '';
     position: absolute;
     top: 50;
-    left: 10px;
-    width: 5px;
-    height: 10px;
+    left: 0.625rem;
+    width: 0.3125rem;
+    height: 0.625rem;
     border: solid #2196F3;
-    border-width: 0 3px 3px 0;
+    border-width: 0 0.1875rem 0.1875rem 0;
     transform: rotate(45deg);
 	}
 	
@@ -97,13 +133,13 @@ const CheckBoxButtonWrapper = styled.div`
 		justify-content: flex-start;
 		align-items: center;
 		width: 90%
-		padding: 0 0% 0 32px;
+		padding: 0 0% 0 2rem;
     box-sizing: border-box;
 	}
 `;
 
 const CurrencyBlockName = styled.div `
-	font-size: 18px;
+	font-size: 1rem;
 	font-family: sans-serif;
 	color: #555555;
 	font-weight: bold;
@@ -116,7 +152,7 @@ const CurrencyBlockName = styled.div `
 const CurrencySwitchButtonsBlock = styled.div`
 	border: 1px solid #2196F3;
 	padding: 0;
-	height: 40%;
+	height: 2.4rem;
 	display: flex;
 	justify-content: center;
 	width: 100%;
@@ -130,6 +166,8 @@ const CurrencySwitchButton: any = styled.button`
 	text-align: center;
 	color: #2196F3;
 	outline-color: transparent
+	font-size: 1rem;
+	height: 2.38em;
 `;
 
 const CurrencySwitchButtonRub: any = styled(CurrencySwitchButton)`
@@ -177,7 +215,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 
 			if(checked) {
 				if(filterValue === -1) {
-					previousFilter = [];
+					previousFilter = [-1, 0, 1, 2, 3];
 				} else {
 					previousFilter.push(filterValue);
 				}
@@ -187,7 +225,14 @@ class FilterMenuComponent extends React.Component <IProps> {
 			replaceFilters(previousFilter);
 		}
 
-    render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> {
+		public checkNeedStateToBeChanged(state: boolean):void {
+			const { filter } = this.props;
+			if(state && filter.length !== 5) {
+				this.handleChangeFilter(state, -1, filter)
+			}
+		}
+
+    render(): React.ReactElement<React.JSXElementConstructor<any>> {
 			const { changeCurrency, filter, currency } = this.props;
         return (
             <FilterMenu>
@@ -219,11 +264,11 @@ class FilterMenuComponent extends React.Component <IProps> {
 								<CheckBoxBlock>
 									<CheckBoxButtonWrapper>
 										<input
-											onChange={(e) => { this.handleChangeFilter(e.target.checked, -1, filter) }}
+											onChange={(e) => { this.checkNeedStateToBeChanged(e.target.checked); console.log(e.target.checked); }}
 											type="checkbox"
 											id="-1"
 											name="allAvailable"
-											checked={filter.length === 0}
+											checked={filter.length === 5}
 										/>
 										<label htmlFor="-1"><span/>
 											Все
@@ -231,7 +276,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
 										<input
-											onChange={(e) => { this.handleChangeFilter(e.target.checked, 0, filter) }}
+											onChange={(e) => {  this.handleChangeFilter(e.target.checked, 0, filter) }}
 											type="checkbox"
 											id="0"
 											name="withoutStops"

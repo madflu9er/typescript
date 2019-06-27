@@ -1,5 +1,6 @@
 html  {
   height: 100%;
+  font-size: 100%;
 }
 
 #root {
@@ -20,4 +21,34 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 90%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  html {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  html {
+    font-size: 75%;
+  }
 }

@@ -12,14 +12,20 @@ interface IProps {
 }
 
 const Block: any = styled.div`
-  width: 100%;
+  width: 43rem;
+  height: 10rem;
   display: flex;
   box-sizing: border-box;
-  height: 200px;
   margin: 10px 0;
   background: #FFFFFF;
   box-shadow: 0 1px 6px 0px #b6b2b2
   border-radius: 7px;
+  
+  @media (max-width: 430px){
+  	width: 100%;
+  	flex-direction: column-reverse;
+    height: 40%;
+  }
 `;
 
 const TicketCompany: any = styled.div`
@@ -30,30 +36,47 @@ const TicketCompany: any = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
+  @media (max-width:430px) {
+    width: 100%;
+    height: 60%
+  }
 `;
 
 const TicketDetails: any = styled.div`
   display: flex;
-  height: 60%;
-  width: 100%;
+  height: 6rem;
+  width: 65%;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width:430px) {
+    width: 100%;
+    height: 40%;
+  }
 `;
 
 const Airlines: any = styled.img`
   max-width: 80%;
+  @media (max-width:430px) {
+    max-width: 35%;
+  }
 `;
 
 const AirLinesImageWrapper: any = styled.div`
-  height: 38%;
+  height: 4.25rem;
   display: flex;
-  width: 100%;
+  width: 80%;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width:430px) {
+    height: 50%;
+  }
 `;
 
 const FlightDecorationText: any = styled.div`
-	font-size: 1.2vw;
+	font-size: 0.9rem;
 	color: #A2A9AB;
 `;
 
@@ -73,8 +96,8 @@ const FlightDecorationBlock: any = styled.div`
 `;
 
 const FlightDecorationIcon: any = styled.div`
-	font-size: 20px;
-	height: 17%
+	font-size: 1rem;
+	height: 15%
 	width: 100%;
 	border-bottom: 1px solid #A2A9AB;
 	color: #A2A9AB;
