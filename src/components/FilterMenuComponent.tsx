@@ -28,8 +28,9 @@ const FilterMenu: any = styled.div`
   
   @media (max-width: 430px) {
   {
-  	width: 100%;
-  	height:40%;
+  	margin: 0 auto;
+    width: 95%;
+    height: 60%;
      flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -49,6 +50,12 @@ const FilterCurrencyBlock = styled.div`
   	width: 50%;
     padding: 0 5%;
   };
+  @media (max-width: 430px) {
+  	height: 35%;
+  	width: 100%;
+    padding: 0 5%;
+    box-sizing: border-box;
+  };
 `;
 
 const FilterButtonsBlock = styled.div`
@@ -65,6 +72,14 @@ const FilterButtonsBlock = styled.div`
     padding: 0 5%;
     height: 90%;
   };
+  
+  @media (max-width: 430px) {
+  {
+  	width: 100%;
+    height: 65%;
+    box-sizing: border-box;
+    padding-bottom: 2%;
+  };
 `;
 
 const CheckBoxBlock = styled.div`
@@ -73,6 +88,10 @@ const CheckBoxBlock = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 10.5rem;
+	
+	@media (max-width: 430px) {
+		height: 85%;
+	}
 `;
 
 const CheckBoxButtonWrapper = styled.div`
@@ -111,6 +130,8 @@ const CheckBoxButtonWrapper = styled.div`
   	opacity: 0;
 	}
 	
+	
+	
 	input:checked + label:before {
   	border-color: #2196F3;
 	}
@@ -133,8 +154,22 @@ const CheckBoxButtonWrapper = styled.div`
 		justify-content: flex-start;
 		align-items: center;
 		width: 90%
-		padding: 0 0% 0 2rem;
+		padding: 0 0% 0 3rem;
     box-sizing: border-box;
+	}
+	
+	@media (max-width: 430px) {
+		input:checked + label:after {
+			left: 0.35rem;
+    	width: 0.2rem;
+    	height: 0.45rem;
+    	top: 30%
+    }
+		label:before {
+			width: 0.8rem;
+			height: 0.8rem;
+			border-radius: 0.25rem;
+    }
 	}
 `;
 
@@ -147,6 +182,11 @@ const CurrencyBlockName = styled.div `
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
+	@media (max-width: 430px) {
+		font-size: 80%;
+		height: 15%;
+	}
 `;
 
 const CurrencySwitchButtonsBlock = styled.div`
@@ -160,14 +200,14 @@ const CurrencySwitchButtonsBlock = styled.div`
 `;
 
 const CurrencySwitchButton: any = styled.button`
-	width: 33.3%;
+	width: 33.6%;
 	border: none;
 	background: white; 
 	text-align: center;
 	color: #2196F3;
 	outline-color: transparent
 	font-size: 1rem;
-	height: 2.38em;
+	height: 100%;
 `;
 
 const CurrencySwitchButtonRub: any = styled(CurrencySwitchButton)`
@@ -215,7 +255,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 
 			if(checked) {
 				if(filterValue === -1) {
-					previousFilter = [-1, 0, 1, 2, 3];
+					previousFilter = [0, 1, 2, 3];
 				} else {
 					previousFilter.push(filterValue);
 				}
@@ -227,7 +267,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 
 		public checkNeedStateToBeChanged(state: boolean):void {
 			const { filter } = this.props;
-			if(state && filter.length !== 5) {
+			if(state && filter.length !== 4) {
 				this.handleChangeFilter(state, -1, filter)
 			}
 		}
@@ -268,7 +308,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 											type="checkbox"
 											id="-1"
 											name="allAvailable"
-											checked={filter.length === 5}
+											checked={filter.length === 4}
 										/>
 										<label htmlFor="-1"><span/>
 											Все

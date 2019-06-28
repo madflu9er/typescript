@@ -4,6 +4,7 @@ import Ticket from "../types/Ticket";
 import BuyButtonComponent from "./BuyButtonComponent";
 import FlightInformationComponent from "./FlightInformationComponent";
 import { formDateString, createStringFromStops } from "../utils/helper";
+import airlines from "../static/airlines.png";
 
 interface IProps {
   ticket: Ticket,
@@ -24,7 +25,7 @@ const Block: any = styled.div`
   @media (max-width: 430px){
   	width: 100%;
   	flex-direction: column-reverse;
-    height: 40%;
+    height: 70%;
   }
 `;
 
@@ -124,7 +125,7 @@ class FlightComponent extends React.Component<IProps> {
         <Block>
           <TicketCompany>
             <AirLinesImageWrapper>
-              <Airlines src="/airlines.webp"/>
+              <Airlines src={airlines}/>
             </AirLinesImageWrapper>
             <BuyButtonComponent
               currency={currency}
@@ -134,6 +135,7 @@ class FlightComponent extends React.Component<IProps> {
           </TicketCompany>
           <TicketDetails>
             <FlightInformationComponent
+							textAlign = "left"
               city={ticket.origin_name}
               index={ticket.origin}
               date={formDateString(ticket.departure_date)}
@@ -148,6 +150,7 @@ class FlightComponent extends React.Component<IProps> {
 							</FlightDecorationIcon>
 						</FlightDecorationBlock>
             <FlightInformationComponent
+							textAlign = "right"
               city={ticket.destination_name}
               index={ticket.destination}
               date={formDateString(ticket.arrival_date)}
