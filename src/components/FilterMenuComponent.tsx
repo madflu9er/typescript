@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import FilterCheckBoxComponent from "../components/FilterCheckBoxComponent";
 
 interface IProps {
 	changeCurrency(newCurrencyCoefficient: number, currencySymbol: string): void,
@@ -304,7 +305,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 								<CheckBoxBlock>
 									<CheckBoxButtonWrapper>
 										<input
-											onChange={(e) => { this.checkNeedStateToBeChanged(e.target.checked); console.log(e.target.checked); }}
+											onChange={(e) => { this.checkNeedStateToBeChanged(e.target.checked);}}
 											type="checkbox"
 											id="-1"
 											name="allAvailable"
@@ -315,52 +316,44 @@ class FilterMenuComponent extends React.Component <IProps> {
 										</label>
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
-										<input
-											onChange={(e) => {  this.handleChangeFilter(e.target.checked, 0, filter) }}
-											type="checkbox"
+										<FilterCheckBoxComponent
+											filter={filter}
 											id="0"
 											name="withoutStops"
-											checked = {filter.includes(0)}
+											onChangeFunction={this.handleChangeFilter.bind(this)}
+											labelName = "Без пересадок"
+											filterValue = {0}
 										/>
-										<label htmlFor="0"><span/>
-											Без пересадок
-										</label>
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
-										<input
-											onChange={(e) => { this.handleChangeFilter(e.target.checked, 1, filter) }}
-											type="checkbox"
+										<FilterCheckBoxComponent
+											filter={filter}
 											id="1"
 											name="withOneStop"
-											checked = {filter.includes(1)}
+											onChangeFunction={this.handleChangeFilter.bind(this)}
+											labelName = "1 Пересадка"
+											filterValue = {1}
 										/>
-										<label htmlFor="1"><span/>
-											1 Пересадка
-										</label>
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
-										<input
-											onChange={(e) => { this.handleChangeFilter(e.target.checked, 2, filter) }}
-											type="checkbox"
+										<FilterCheckBoxComponent
+											filter={filter}
 											id="2"
 											name="withTwoStops"
-											checked = {filter.includes(2)}
+											onChangeFunction={this.handleChangeFilter.bind(this)}
+											labelName = "2 Пересадка"
+											filterValue = {2}
 										/>
-										<label htmlFor="2"><span/>
-											2 Пересадки
-										</label>
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
-										<input
-											onChange={(e) => { this.handleChangeFilter(e.target.checked, 3, filter) }}
-											type="checkbox"
+										<FilterCheckBoxComponent
+											filter={filter}
 											id="3"
 											name="withThreeStops"
-											checked = {filter.includes(3)}
+											onChangeFunction={this.handleChangeFilter.bind(this)}
+											labelName = "3 Пересадка"
+											filterValue = {3}
 										/>
-										<label htmlFor="3"><span/>
-											3 Пересадки
-										</label>
 									</CheckBoxButtonWrapper>
 								</CheckBoxBlock>
 							</FilterButtonsBlock>
