@@ -44,7 +44,7 @@ const FilterCurrencyBlock = styled.div`
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: flex-start;
-	padding: 0 10%;
+	padding: 0 5%;
 	
 	@media (max-width: 768px) {
   {
@@ -65,7 +65,7 @@ const FilterButtonsBlock = styled.div`
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-	padding: 0 10%;
+	padding: 0 5%;
 	
 	@media (max-width: 768px) {
   {
@@ -150,13 +150,28 @@ const CheckBoxButtonWrapper = styled.div`
 	}
 	
 	label {
+		z-index: 1;
+	  font-size: 0.9rem;
 		height:100%;
 		display:flex;
 		justify-content: flex-start;
 		align-items: center;
 		width: 90%
-		padding: 0 0% 0 3rem;
+		padding: 0 0% 0 2.1rem;
     box-sizing: border-box;
+	}
+	
+	button {
+		z-index: 2;
+    background: transparent;
+    border: 0;
+    color: #2196f3;
+    outline: none;
+	}
+	
+	button:hover {
+	 text-decoration: underline;
+	 cursor: pointer;
 	}
 	
 	@media (max-width: 430px) {
@@ -191,7 +206,6 @@ const CurrencyBlockName = styled.div `
 `;
 
 const CurrencySwitchButtonsBlock = styled.div`
-	border: 1px solid #2196F3;
 	padding: 0;
 	height: 2.4rem;
 	display: flex;
@@ -212,31 +226,31 @@ const CurrencySwitchButton: any = styled.button`
 `;
 
 const CurrencySwitchButtonRub: any = styled(CurrencySwitchButton)`
-		border-radius: ${props => (props.currency === "₽" ?"5px 0px 0px 5px":"10px 0px 0px 10px")};
+		border: 1px solid #2196F3;
+		border-radius: 5px 0px 0px 5px;
 		background: ${props => (props.currency === "₽" ? "#2196F3" : "white")};
 		color: ${props => (props.currency === "₽" ? "white" : "#2196F3")};
 		:hover {
 			background: ${props => (props.currency === "₽" ? "#2196F3" : "#F2FCFF")};
 			color: ${props => (props.currency === "₽" ? "white" : "#2196F3")};
-			border-radius: ${props => (props.currency === "₽" ?"5px 0px 0px 5px":"10px 0px 0px 10px")};
 		}
 `;
 
 
 const CurrencySwitchButtonEur: any = styled(CurrencySwitchButton)`
-	border-radius: ${props => (props.currency === "€" ?"0px 5px 5px 0px":"0px 10px 10px 0px")};
+	border: 1px solid #2196F3;
+	border-radius: 0px 5px 5px 0px;
 	background: ${props => (props.currency === "€" ? "#2196F3" : "white")};
 	color: ${props => (props.currency === "€" ? "white" : "#2196F3")};
 	:hover {
 			background: ${props => (props.currency === "€" ? "#2196F3" : "#F2FCFF")};
 			color: ${props => (props.currency === "€" ? "white" : "#2196F3")};
-			border-radius: ${props => (props.currency === "€" ?"0px 5px 5px 0px":"0px 10px 10px 0px")};
 		}
 `;
 
 const CurrencySwitchButtonUsd: any = styled(CurrencySwitchButton)`
-	border-right: 1px solid #2196F3;
-	border-left: 1px solid #2196F3;
+	border-bottom: 1px solid #2196F3;
+	border-top: 1px solid #2196F3;
 	background: ${props => (props.currency === "$" ? "#2196F3" : "white")};
 	color: ${props => (props.currency === "$" ? "white" : "#2196F3")};
 	:hover {
@@ -250,6 +264,11 @@ const StopsBlockName = styled(CurrencyBlockName)`
 `;
 
 class FilterMenuComponent extends React.Component <IProps> {
+
+		public setSingleFilter(filterValue: number): void {
+			const { replaceFilters } = this.props;
+			replaceFilters([filterValue]);
+		}
 
 		public handleChangeFilter(checked: boolean, filterValue: number, previousFilter: number[]): void {
 			const { replaceFilters } = this.props;
@@ -317,6 +336,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
 										<FilterCheckBoxComponent
+											setSingleFilter={this.setSingleFilter.bind(this)}
 											filter={filter}
 											id="0"
 											name="withoutStops"
@@ -327,6 +347,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
 										<FilterCheckBoxComponent
+											setSingleFilter={this.setSingleFilter.bind(this)}
 											filter={filter}
 											id="1"
 											name="withOneStop"
@@ -337,6 +358,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
 										<FilterCheckBoxComponent
+											setSingleFilter={this.setSingleFilter.bind(this)}
 											filter={filter}
 											id="2"
 											name="withTwoStops"
@@ -347,6 +369,7 @@ class FilterMenuComponent extends React.Component <IProps> {
 									</CheckBoxButtonWrapper>
 									<CheckBoxButtonWrapper>
 										<FilterCheckBoxComponent
+											setSingleFilter={this.setSingleFilter.bind(this)}
 											filter={filter}
 											id="3"
 											name="withThreeStops"

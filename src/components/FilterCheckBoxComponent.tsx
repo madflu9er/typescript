@@ -7,17 +7,21 @@ interface IProps {
 	filter: number[],
 	onChangeFunction(checked: boolean, filterValue: number, previousFilter: number[]): void,
 	labelName: string,
-	filterValue: number
+	filterValue: number,
+	setSingleFilter(filter: number): void
 }
 
 const Block: any = styled.div`
 	height: 100%;
 	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 `;
 
 const FilterCheckBoxComponent: React.FC<IProps> = (props) => {
 
-	const { labelName, onChangeFunction, filter, name, id, filterValue} = props;
+	const { labelName, onChangeFunction, filter, name, id, filterValue, setSingleFilter} = props;
 
 	return (
 		<Block>
@@ -31,7 +35,9 @@ const FilterCheckBoxComponent: React.FC<IProps> = (props) => {
 			<label htmlFor={id}><span/>
 				{labelName}
 			</label>
-
+			<button onClick={() =>{setSingleFilter(filterValue)}}>
+				только
+			</button>
 		</Block>
 		)
 };
